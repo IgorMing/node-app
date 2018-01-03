@@ -31,7 +31,7 @@ const schema = new graphql.GraphQLSchema({
     name: 'Query',
     fields: {
       establishment: {
-        type: establishmentType,
+        type: new graphql.GraphQLList(establishmentType),
         args: {
           id: { type: graphql.GraphQLInt }
         },
