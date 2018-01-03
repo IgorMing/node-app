@@ -26,6 +26,19 @@ function getEstablishments() {
   })
 }
 
+function getEstablishmentById(id) {
+  return new Promise((resolve, reject) => {
+    client.query('SELECT * FROM establishment WHERE id = $1', [id], (err, data) => {
+      if (err) {
+        return reject(err);
+      }
+
+      const response = data.rows.length ? [data.rows[0]] : [];
+      return resolve(response);
+    });
+  })
+}
+
 const schema = new graphql.GraphQLSchema({
   query: new graphql.GraphQLObjectType({
     name: 'Query',
@@ -36,6 +49,9 @@ const schema = new graphql.GraphQLSchema({
           id: { type: graphql.GraphQLInt }
         },
         resolve(_, args) {
+          if (args.id) {
+            return getEstablishmentById(args.id);
+          }
           return getEstablishments();
         }
       }
