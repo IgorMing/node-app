@@ -21,9 +21,9 @@ const establishmentType = new graphql.GraphQLObjectType({
 });
 
 function getEstablishments() {
-  let response = null;
-  client.query('SELECT * FROM establishment', [], (err, data) => response = err ? err.stack : data.rows);
-  return response;
+  return new Promise((resolve, reject) => {
+    client.query('SELECT * FROM establishment', [], (err, data) => err ? reject(err) : resolve(data.rows));
+  });
 }
 
 const schema = new graphql.GraphQLSchema({
@@ -36,7 +36,7 @@ const schema = new graphql.GraphQLSchema({
           id: { type: graphql.GraphQLInt }
         },
         resolve: (_, args) => {
-          getEstablishments();
+          return getEstablishments();
         }
       }
     }
