@@ -14,16 +14,16 @@ client.connect();
 const establishmentType = new graphql.GraphQLObjectType({
   name: 'Establishment',
   fields: {
-    id: { type: new graphql.GraphQLNonNull(graphql.GraphQLInt) },
-    name: { type: new graphql.GraphQLNonNull(graphql.GraphQLString) },
-    qtdMesas: { type: graphql.GraphQLInt }
+    id: { type: graphql.GraphQLInt },
+    name: { type: graphql.GraphQLString },
+    qtdmesas: { type: graphql.GraphQLInt }
   }
 });
 
 function getEstablishments() {
   return new Promise((resolve, reject) => {
     client.query('SELECT * FROM establishment', [], (err, data) => err ? reject(err) : resolve(data.rows));
-  });
+  })
 }
 
 const schema = new graphql.GraphQLSchema({
@@ -35,7 +35,7 @@ const schema = new graphql.GraphQLSchema({
         args: {
           id: { type: graphql.GraphQLInt }
         },
-        resolve: (_, args) => {
+        resolve(_, args) {
           return getEstablishments();
         }
       }

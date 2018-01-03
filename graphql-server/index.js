@@ -1,15 +1,17 @@
 const express = require('express');
-const graphql = require('graphql');
-const graphqlHTTP = require('express-graphql');
-const users = require('./schema');
+const bodyParser = require('body-parser');
+const apolloServer = require('apollo-server-express');
+const { graphqlExpress, graphiqlExpress } = apolloServer;
+
+const myGraphQLSchema = require('./schema');
+const PORT = 3001;
+
 const app = express();
 
-const port = 3001;
+// bodyParser is needed just for POST.
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema: myGraphQLSchema }));
+app.get('/graphiql', graphiqlExpress({ endpointURL: '/graphql' })); // if you want GraphiQL enabled
 
-app.use('/user', graphqlHTTP({
-  schema: users,
-  graphiql: true
-}));
-app.listen(port, function () {
-  console.log(`GraphQL server listening on port:${port}.`);
+app.listen(PORT, function () {
+  console.log(`GraphQL server listening on port:${PORT}.`);
 });
