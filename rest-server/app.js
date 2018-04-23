@@ -1,13 +1,13 @@
 const express = require('express');
 const { Client } = require('pg');
 const app = express();
-const establishmentRouter = require('./routes/establishment');
+const userRouter = require('./routes/users');
 
 const client = new Client({
-  user: 'postgres',
+  user: 'docker',
   host: 'localhost',
-  database: 'callnow',
-  password: 'postgres',
+  database: 'postgres',
+  password: 'docker',
   port: 5432
 });
 
@@ -15,7 +15,7 @@ const port = 3000;
 
 client.connect();
 
-app.use('/establishments', establishmentRouter(client));
+app.use('/users', userRouter(client));
 
 app.listen(port, () => {
   console.log(`Listening on port:${port}`)
