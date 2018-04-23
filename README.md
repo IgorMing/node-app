@@ -9,7 +9,7 @@ You must have docker already installed in your machine. Whether you need some he
 Getting started
 =
 
-> Some docker commands below, probably will be only permitted with `sudo` command.
+> Some docker commands below, may be only permitted with `sudo` command. Unless you follow the Docker's post install [instructions](https://docs.docker.com/install/linux/linux-postinstall/) (Considering you are using Linux).
 
 First, let's create our docker image, with a postgres image ready to be used. On the case below, `docker-postgres` is the name that I chose. Just run it into the project folder.
 
