@@ -54,7 +54,15 @@ or
 docker container ls
 ```
 
-Our both applications can run normally now, because we are able to connect in a postgres database.
+Now your container is already prepared to be used for our client applications.
+
+Every single time that you want to use this container, you can just start it with the command below:
+```
+docker start docker-pg
+```
+>  If you try to run the container again (instead of start it, as you can check with the command above), it is going to conflict with the existing `docker-pg` container
+
+Our both applications can run normally now, because we are able to connect in the postgres database, provided from the docker container.
 
 Go into any node app you want, and run `yarn start`. (Rest API on port 3000 and Graphql API on port 3001)
 
